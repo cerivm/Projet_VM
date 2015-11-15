@@ -10,7 +10,14 @@ import java.util.List;
  */
 public class VmAllocationPolicyFactory {
 
+    /**
+     * Return the VMAllocationPolicy associated to id
+     * @param id the algorithm identifier
+     * @param hosts the host list
+     * @return the selected algorithm
+     */
     VmAllocationPolicy make(String id, List<PowerHost> hosts) {
+
         switch (id) {
             case "naive":  return new NaiveVmAllocationPolicy(hosts);
         }
