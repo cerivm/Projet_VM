@@ -46,12 +46,9 @@ If you execute the program through `mvn exec:java`, then the arguments are provi
 `mvn compile exec:java -Dsched=naive -Dday=all`
 - to replay only day `20110303`: `mvn compile exec:java -Dsched=naive -Dday=20110303`
 
-
-
 ## Exercices
 
-For this project, you will have to develop various VM schedulers and a few observers that check if your schedulers behave correctly.
-
+For this project, you have to develop various VM schedulers and a few observers that check if your schedulers behave correctly.
 To integrate your schedulers within the codebase, you will have to declare your schedulers inside the class `VmAllocationPolicyFactory`.
 
 ### A naive scheduler to start
@@ -60,52 +57,42 @@ This first scheduler aims only at discovering the CloudSim API. This scheduler s
 
 1. Just create the new class handling the scheduling, integrate it into `VmAllocationPolicyFactory`. Your class must extends `VmAllocationPolicy`. The flag to call this scheduler for the command line interface (CLI) will be "naive". Test if the integration is correct. The code shall crash in your class but that is expected at this stage.
 2. Implements the easy part first, that is to indicate where a Vm runs. This is done by the `getHost(Vm)` and the `getHost(int, int)` methods
-
 3. The 2 `allocateHostForVm` are the core of the Vm scheduler. One of the 2 methods will be executed directly by the simulator each time a Vm is submitted. In these methods, you are in charge of compute the most appropriate host for each Vm. Implementing `allocateHostForVm(Vm, Host)` is straighforward as the host is forced. To allocate the Vm on a host look at the method `Host.vmCreate(Vm)`. It allocates and returns true iff the host as sufficient free resources. The method `getHostList` from `VmAllocationPolicy` allows to get the datacenter nodes. Track the way you want the host used to host that Vm.
-
 4. Implements `deallocateHostForVm`, the method that remove a running `Vm` from its hosting node. Find the host that is running your Vm and use `Host.vmDestroy()` to kill it.
-
 5. The scheduler is static. `optimizeAllocation` must returns `null`
-
 6. Now, implement `allocateHostForVm(Vm)` that is the main method of this class. As we said, the scheduler is very simple, it just schedule the `Vm` on the first appropriate `Host`.
- 
 7. Test your simulator on a single day. If the simulation terminates successfully, all the VMs have been scheduled, all the cloudlets ran, and the provider revenues is displayed.
-
-8. Test the simulator runs succesfully on all the days. For future comparisons, save the daily revenues and the global one. At this stage, it is ok to have penalties due to SLA violations
+8. Test the simulator runs successfully on all the days. For future comparisons, save the daily revenues and the global one. At this stage, it is ok to have penalties due to SLA violations
 	
 ### Support for Highly-Available applications
 
 Let consider the VMs run replicated applications. To make them fault-tolerant to hardware failure, the customer expects to have the replicas running on distinct hosts.
 
 1. Implement a new scheduler (`antiAffinity` flag) that place the Vms with regards to their affinity. In practice, all Vms with an id between [0-99] must be on distinct nodes, the same with Vms having an id between [100-199], [200-299], ... .
-
-2. What is the temporal complexity of the algorithm ?
-
-3. What is the impact of such an algorithm over the cluster hosting capacity ?
+1. What is the impact of such an algorithm over the cluster hosting capacity ?
 
 ### Balance the load
 
-Balancing the load is usefull to avoid to alter specific hosts prematurely. It is also convenient to minimize the probabilities of saturating a host.
+Balancing the load is useful to avoid to alter specific hosts prematurely. It is also convenient to minimize the probabilities of saturating a host.
 
-1. Develop a scheduler that perform load balancing (`balance` flag) with regards to the mips available on each host. You should observe fewer penalties with regards to the naive scheduler. What is the temporal complexity of the algorithm ?
-
+1. Develop a scheduler that performs load balancing using a `next fit algorithm` (flag `nextFit`). You should observe fewer penalties with regards to the naive scheduler
+1. Develop a scheduler that performs load balancing (`balance` flag) with regards to the mips available on each host.
+1. Develop a third variation that balance with regards to both RAM and mips.
+1. Which algorithms performs the best in terms of reducing the SLA violation. Why ?
 2. To check the balancing is effective, implements an observer. A sample one is `PeakPowerObserver`. Basically, your observer must be called every simulated second to estimate the balancing. The core method to implement is the `processEvent` method. Aside `startEntity` must be implemented as well to bootstrap the observation loop. Establish a metric to describe the balancing, justify you choice, and observe its variation depending on the underlying scheduler.
 
 ### Get rid of SLA violations
 
 For a practical understanding of what a SLA violation is in this project, look at the `Revenue` class. Basically, there is a SLA violation when the associated Vm is requiring more MIPS it is possible to get on its host.
-
 If the SLA is not met then the provider must pay penalties to the client. It is then not desirable to have violations to attract customers and maximize the revenues.
 
-1. Implement a scheduler that ensures there can be no SLA violation (`noViolations` flag). Remember the natuve of the hypervisor. Your scheduler is effective when you can succesfully simulates all the days, with the `Revenue` class reporting no refundings due to SLA violation. What is the temporal complexity of the algorithm ?
+1. Implement a scheduler that ensures there can be no SLA violation (`noViolations` flag). Remember the nature of the hypervisor in terms of CPU allocation. Your scheduler is effective when you can successfully simulate all the days, with the `Revenue` class reporting no re-fundings due to SLA violation.
 
 ### Energy-efficient schedulers
 
 #### static version
 
 Develop a scheduler (`statEnergy` flag) that reduces the overall energy consumption without relying on Vm migration. The resulting simulation must consumes less energy than all the previous schedulers.
-
-What is the temporal complexity of the algorithm ?
 
 #### dynamic version (bonus)
 
@@ -128,4 +115,4 @@ public List<Map<String,Object>> optimizeAllocation(List<Vm> vms) {
 
 ### Greedy scheduler (bonus)
 
-Develop a scheduler that maximizes revenues. It is then important to provide a good tradeoff between energy savings and penalties for SLA violation. Justify your choices and the theoretical complexity of the algorithm
+Develop a scheduler that maximizes revenues. It is then important to provide a good trade-off between energy savings and penalties for SLA violation. Justify your choices and the theoretical complexity of the algorithm

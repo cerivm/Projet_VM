@@ -40,7 +40,6 @@ public class Main {
 
         //The broker is the client interface where to submit the VMs
         DatacenterBroker broker = new PowerDatacenterBroker("Broker");
-
         //The applications to run, on their Vms
         List<Cloudlet> cloudlets = Helper.createCloudletListPlanetLab(broker.getId(), input.getPath());
         List<Vm> vms = Helper.createVmList(broker.getId(), cloudlets);

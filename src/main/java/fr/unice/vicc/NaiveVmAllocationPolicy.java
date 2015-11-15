@@ -1,6 +1,7 @@
 package fr.unice.vicc;
 
 import org.cloudbus.cloudsim.Host;
+import org.cloudbus.cloudsim.Log;
 import org.cloudbus.cloudsim.Vm;
 import org.cloudbus.cloudsim.VmAllocationPolicy;
 
@@ -45,6 +46,7 @@ public class NaiveVmAllocationPolicy extends VmAllocationPolicy {
         for (Host h : getHostList()) {
             if (h.vmCreate(vm)) {
                 //track the host
+                Log.printLine(vm + " launched on " + h);
                 vmTable.put(vm.getUid(), h);
                 return true;
             }
