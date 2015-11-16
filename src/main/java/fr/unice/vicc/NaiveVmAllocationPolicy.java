@@ -5,6 +5,7 @@ import org.cloudbus.cloudsim.Vm;
 import org.cloudbus.cloudsim.VmAllocationPolicy;
 import org.cloudbus.cloudsim.power.PowerHost;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,13 +14,18 @@ import java.util.Map;
  */
 public class NaiveVmAllocationPolicy extends VmAllocationPolicy {
 
+    /** The map to track the server that host each running VM. */
+    private Map<Vm,Host> hoster;
+
     public NaiveVmAllocationPolicy(List<? extends Host> list) {
         super(list);
+        hoster =new HashMap<>();
     }
 
     @Override
     protected void setHostList(List<? extends Host> hostList) {
         super.setHostList(hostList);
+        hoster =new HashMap<>();
     }
 
     @Override
