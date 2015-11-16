@@ -25,7 +25,7 @@ public class NaiveVmAllocationPolicy extends VmAllocationPolicy {
     @Override
     protected void setHostList(List<? extends Host> hostList) {
         super.setHostList(hostList);
-        hoster =new HashMap<>();
+        hoster = new HashMap<>();
     }
 
     @Override
@@ -34,32 +34,52 @@ public class NaiveVmAllocationPolicy extends VmAllocationPolicy {
     }
 
     @Override
-    public boolean allocateHostForVm(Vm vm) {
-        return false;
-    }
-
-    @Override
-    public boolean allocateHostForVm(Vm vm, Host host) {
-        return false;
-    }
-
-    @Override
     public List<Map<String, Object>> optimizeAllocation(List<? extends Vm> list) {
         return null;
     }
 
     @Override
-    public void deallocateHostForVm(Vm vm) {
+    public boolean allocateHostForVm(Vm vm) {
+        System.out.println("Trouver une place pour VM " + vm.getId());
+        for (Host h : getHostList()) {
+            if (h.vmCreate(vm)) {
+                //Suffisament de ressources, et la VM est déjà lancé
+                hoster.put(vm, h);
+                return true;
+            }
+        }
+        return false;
+    }
 
+    @Override
+    public boolean allocateHostForVm(Vm vm, Host host) {
+        if (host.vmCreate(vm)) {
+            hoster.put(vm, host);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void deallocateHostForVm(Vm vm) {
+        Host h = hoster.get(vm);
+        h.vmDestroy(vm);
     }
 
     @Override
     public Host getHost(Vm vm) {
-        return null;
+        return hoster.get(vm);
     }
 
     @Override
-    public Host getHost(int i, int i1) {
+    public Host getHost(int vmId, int userId) {
+        for (Host h : getHostList()) {
+            for (Vm v : h.getVmList()) {
+                if (v.getUserId() == userId && v.getId() == vmId) {
+                    return h;
+                }
+            }
+        }
         return null;
     }
 }
