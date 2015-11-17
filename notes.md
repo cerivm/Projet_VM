@@ -2,7 +2,7 @@
 
 ## The team
 
-- Foo bar: email1
+- Mail: elouardi.mohamed@gmail.com
 - bar bar: email2
 
 ## Comments
