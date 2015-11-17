@@ -2,7 +2,7 @@
 
 ## The team
 
-- Mail: elouardi.mohamed@gmail.com
-- bar bar: email2
+- elouardi mohammed: elouardi.mohamed@gmail.com
+- HAMIDANE azzelarab: azzelarabh@gmail.com
 
 ## Comments
