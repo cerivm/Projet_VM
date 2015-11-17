@@ -81,6 +81,7 @@ public class Main {
 
         if (args.length == 1 || args[1].equals("all")) {
             //we process every day
+			
             File input = new File(WORKLOAD);
             if (!input.isDirectory()) {
                 quit(WORKLOAD + " is not a folder");
