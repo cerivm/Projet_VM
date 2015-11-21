@@ -2,7 +2,7 @@
 
 ## The team
 
-- elouardi mohammed: elouardi.mohamed@gmail.com
-- HAMIDANE azzelarab: azzelarabh@gmail.com
+- HAMIDANE Azzelarab: azzelarabh@gmail.com
+- ELOUARDI Mohammed: elouardi.mohamed@gmail.com
 
 ## Comments
