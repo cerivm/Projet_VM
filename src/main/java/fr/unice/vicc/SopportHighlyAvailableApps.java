@@ -9,6 +9,10 @@ import org.cloudbus.cloudsim.Host;
 import org.cloudbus.cloudsim.Vm;
 import org.cloudbus.cloudsim.VmAllocationPolicy;
 
+/**
+ * Created by Azzelarab & Med 4/12/2015.
+ */
+
 public class SopportHighlyAvailableApps extends VmAllocationPolicy{
 
     /** The map to track the server that host each running VM. */
@@ -31,93 +35,110 @@ public class SopportHighlyAvailableApps extends VmAllocationPolicy{
     }
 
     //@Override
-    public List<Map<String, Object>> optimizeAllocation2(List<? extends Vm> list) {
+    public List<Map<String, Object>> optimizeAllocation(List<? extends Vm> list) {
         return null;
     }
+/*==============================================================================================================*/
+/*==============================================================================================================*/
+    // Function to check if the VM ID exists already in the host and if the host has the ressources     
+    public boolean check_id(int vm_id,List<Vm> list_Vm ){  	
+   	   	
+    	int temp = 0;
+    	int vm_host = 0;
+    	int unreachable = 2000;
+        int min = 0;
+        int max = 99;
+        
+    	while( temp <= list_Vm.size()-1 ){ 
+    		
+    			vm_host = list_Vm.get(temp).getId();        				
 
+       		  		if( vm_host >= min && vm_host <= max      &&      vm_id >= min && vm_id <= max ){
+
+       		  			return true;
+       		  		}            		  		
+       		  		
+   		  	 min = min + 100;
+   		  	 max = max + 100;
+    	  ++temp;
+    	}
+
+    	return false;
+    }
+    
+/* public boolean check_id(int vm_id,List<Vm> list_Vm ){  	
+   	   	
+    	int temp = 0;
+    	int vm_host = 0;
+        
+    	while( temp <= list_Vm.size()-1 ){    		
+  
+              vm_host = list_Vm.get(temp).getId() / 100;
+              
+              if((vm_id / 100) == vm_host){
+            	  return true;
+              }
+    	}
+    	return false;
+    }*/
+    
+	@Override
+	public boolean allocateHostForVm(Vm vm) {
+			
+		int id_vm = vm.getId();
+		//List<Vm> list_Vm;
+		
+        for (Host h : getHostList()) {
+        	        	
+        	//list_Vm = h.getVmList(); 
+        	       		
+        		if (check_id(id_vm, h.getVmList()) == false ){
+        			
+        			if(h.vmCreate(vm)){
+        		
+        				System.out.println("VM " + vm.getId() + " =====> " + h.getId());
+        				hoster.put(vm, h);
+        			
+        			 return true;
+        			}
+        		}    
+        }
+
+		return false;
+	}
+/*==============================================================================================================*/
+/*==============================================================================================================*/
+	
+	@Override
+	public boolean allocateHostForVm(Vm vm, Host host) {
+        if (host.vmCreate(vm)) {
+            hoster.put(vm, host);
+            return true;
+        }
+        return false;
+	}
+	
     @Override
     public void deallocateHostForVm(Vm vm) {
         Host h = hoster.get(vm);
         h.vmDestroy(vm);
     }
-    
-    // Function to check if the VM ID exists already in the host ans if the host has the ressources 
-    public boolean check_id(int vm_id,List list_Vm ){
 
-    	int tableau[][] =  { {0,99}, {100,199}, {200,299}, {300,399}, {400,499}, {500,599}, {600,699}, {700,799}, {800,899}, {900,999}, {1000,51} };
-    	
-    	Iterator iterate = list_Vm.iterator();
-    	
-    	while(iterate.hasNext()){
-    		
-    		  int var = (int)iterate.next();
-    		  
-    		  for( int i = 0; i< tableau.length; ++i){
-    			  
-    			     for( int j = 0; j<tableau[i].length; ++j){
-    			    	  
-    			    	 if( tableau[i][j] <= var && tableau[i][j] <= vm_id  && tableau[i+1][j] >= var && tableau[i+1][j] >= vm_id ){
-    			    		 
-    			    	 }
-    			    	 
-    			     }
-   			  }	
-    		
-    	}
-    	return false;
+    @Override
+    public Host getHost(Vm vm) {
+        return hoster.get(vm);
     }
-    
-	@Override
-	public boolean allocateHostForVm(Vm vm) {
-				
+
+    @Override
+    public Host getHost(int vmId, int userId) {
         for (Host h : getHostList()) {
-        	
-        	int id_vm = vm.getId();
-        	
-        	System.out.println("Host List : " + h);
-        	
-        	h.getVmList();
-            
-        	if (check_id(id_vm,h.getVmList()) == true && h.vmCreate(vm) == true) {
-        		
-                //Suffisament de ressources, et la VM est déja  lancée
-                hoster.put(vm, h);
-                return true;
+            for (Vm v : h.getVmList()) {
+                if (v.getUserId() == userId && v.getId() == vmId) {
+                    return h;
+                }
             }
-
         }
-		return false;
-	}
-
-	@Override
-	public boolean allocateHostForVm(Vm arg0, Host arg1) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public Host getHost(Vm arg0) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Host getHost(int arg0, int arg1) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Map<String, Object>> optimizeAllocation(List<? extends Vm> arg0) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public void affinity(){
-		 for (Host h : getHostList()) {
-	            
-	        }
-	}
-	//List<T> list;
+        return null;
+    }
 	
 }

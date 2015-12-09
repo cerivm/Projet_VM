@@ -112,7 +112,6 @@ public class Main {
             try {
             	
             	System.out.println("test valeur  : " + args[1]);
-            	
                 Revenue r = simulateDay(args[1], policy);
                 System.out.println(r);
                 revenues.add(r);
