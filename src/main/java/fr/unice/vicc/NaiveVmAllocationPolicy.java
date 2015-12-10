@@ -40,20 +40,10 @@ public class NaiveVmAllocationPolicy extends VmAllocationPolicy {
 
     @Override
     public boolean allocateHostForVm(Vm vm) {
-
-    	
-        System.out.println("Trouver une place pour VM " + vm.getId());
-        
-        for (Host h : getHostList()) {
-        	
-            if (h.vmCreate(vm)) {
-                //Suffisament de ressources, et la VM est déja  lancée
-
         System.out.println("Trouver une place pour VM " + vm.getId());
         for (Host h : getHostList()) {
             if (h.vmCreate(vm)) {
-                //Suffisament de ressources, et la VM est dÃ©jÃ  lancÃ©
-
+                //Suffisament de ressources, et la VM est déjà lancé
                 hoster.put(vm, h);
                 return true;
             }

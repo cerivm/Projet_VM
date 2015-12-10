@@ -41,12 +41,15 @@ public class Balance_RAM_MIPS extends VmAllocationPolicy {
     /*=============================================================================*/
     /*======================== Balance " MIPS / RAM "==============================*/
     /*=============================================================================*/
+    
+    // Overriding the function and checking if the Host has enough MIPS and RAM ressources
     @Override
     public boolean allocateHostForVm(Vm vm) {
 
         int RAM;
         for (Host h : getHostList()) {        	
 
+        	// Checking if the VM required MIPS / RAM are less than the MIPS and RAM available in The Host
         		if (vm.getMips() < h.getAvailableMips()   &&   vm.getRam() < h.getRamProvisioner().getAvailableRam()) {
             	
         			System.out.println("VM " +vm.getId()+ " Requests ==> " + vm.getMips() +" Mips " + "And " +vm.getRam()+ " RAM" +"  ||   The Host " +h.getId()+ " has ==> " +h.getAvailableMips()+ " Mips" + " And "+h.getRamProvisioner().getAvailableRam() + " RAM");

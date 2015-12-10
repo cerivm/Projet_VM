@@ -39,20 +39,23 @@ public class NoViolations extends VmAllocationPolicy {
     }
     
     /*======================================================================================================*/
-    /*======No violations of SLA because the high availability of the Hosts in the datacenter===============*/
-    /*======================================================================================================*/
+    // In order to Have no SLA Violations : The Vm accessed at any moment all the MIPS it required
+    // The Principle of the algorithm is to define a MIPS Treshold / Metric for every host in the DataCenter. 
+    
     @Override
     public boolean allocateHostForVm(Vm vm) {
 
         int RAM;
         int Treshold_MIPS = 1100; // In order to improve the no SLA violation algorithm,
-        					   // we had to make a threshold on every HOST to let the requiring MIPS free for the hosted VMS at any TIME .
+        					      // we had to make a Metric on every HOST to let the requiring MIPS 
+        						  // free for the hosted VMS at any TIME.
+        
         for (Host h : getHostList()) {
 
         	if(h.getAvailableMips() > Treshold_MIPS){
-        		if (vm.getMips() < h.getAvailableMips()   &&   vm.getRam() < h.getRamProvisioner().getAvailableRam()) {
+        		if (vm.getMips() < h.getAvailableMips()) {
             	
-        			System.out.println("VM " +vm.getId()+ " Requests ==> " + vm.getMips() +" Mips " + "And " +vm.getRam()+ " RAM" +"  ||   The Host " +h.getId()+ " has ==> " +h.getAvailableMips()+ " Mips" + " And "+h.getRamProvisioner().getAvailableRam() + " RAM");
+        			System.out.println("VM " +vm.getId() +"  || Hosted By " +h.getId());
         		
         			if(h.vmCreate(vm)){
         				hoster.put(vm, h);

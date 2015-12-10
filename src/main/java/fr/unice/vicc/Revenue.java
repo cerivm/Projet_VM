@@ -11,7 +11,6 @@ import org.cloudbus.cloudsim.power.PowerDatacenter;
  * @author Fabien Hermenier
  *
  */
-
 public class Revenue {
 
     private int [] subscriptions = {42, 48, 54, 60, 66, 72, 78, 84, 90, 96, 102, 108, 120, 132, 144, 156, 168, 180, 192, 204, 216, 228, 240};
@@ -24,13 +23,13 @@ public class Revenue {
     private double ANNUAL_KW_COST = 74.16;
     private double DAILY_KW_COST = ANNUAL_KW_COST / 100;
 
-    private double KWH_PRICE = 4.871 / 100; /* â‚¬/kWh */
+    private double KWH_PRICE = 4.871 / 100; /* €/kWh */
 
-    private double PUBLIC_SERVICE_TAX = 1.650/100; /* â‚¬/kWh */
+    private double PUBLIC_SERVICE_TAX = 1.650/100; /* €/kWh */
 
-    private double DEPT_SERVICE_TAX = 0.300/100; /* â‚¬/kWh */
+    private double DEPT_SERVICE_TAX = 0.300/100; /* €/kWh */
 
-    private double CITY_SERVICE_TAX = 0.633/100; /* â‚¬/kWh */
+    private double CITY_SERVICE_TAX = 0.633/100; /* €/kWh */
 
     private double TVA = 0.20;
 
@@ -169,17 +168,9 @@ public class Revenue {
 
     @Override
     public String toString() {
-
-    	
         return "Incomes:    " + String.format("%.2f", clientIncomes()) + "€\n" +
                "Penalties:  " + String.format("%.2f", penalties()) + "€\n" +
                "Energy:     " + String.format("%.2f", energyCost()) + "€\n" +
                "Revenue:    " + String.format("%.2f", compute()) + "€\n";
-
-        return "Incomes:    " + String.format("%.2f", clientIncomes()) + "â‚¬\n" +
-               "Penalties:  " + String.format("%.2f", penalties()) + "â‚¬\n" +
-               "Energy:     " + String.format("%.2f", energyCost()) + "â‚¬\n" +
-               "Revenue:    " + String.format("%.2f", compute()) + "â‚¬\n";
-
     }
 }

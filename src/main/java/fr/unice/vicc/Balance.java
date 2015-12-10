@@ -42,18 +42,18 @@ public class Balance extends VmAllocationPolicy {
     /*========================Balance " MIPS Condition=============================*/
     /*=============================================================================*/
     
+    // Overriding the function and checking if the Host has enough MIPS ressources
     @Override
     public boolean allocateHostForVm(Vm vm) {
     	       
         for (Host h : getHostList()) {
-        	        	
+        	
+        	// Checking if the VM required MIPS are less than the MIPS available in The Host
             if (vm.getMips() < h.getAvailableMips()) {
             	
-            	System.out.println("Host ressources : " +h.getAvailableMips()+" "+ h.getRam());
             	System.out.println("VM " +vm.getId()+ " Requests ==> " + vm.getMips() +" Mips " + "  ||   The Host " +h.getId()+ " has ==> " +h.getAvailableMips()+ " Available Mips");
             	
-            	if(h.vmCreate(vm)){
-            		
+            	if(h.vmCreate(vm)){            		
             		hoster.put(vm, h);
             		return true;
             	}
