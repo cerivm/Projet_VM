@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 package fr.unice.vicc;
 
 import org.cloudbus.cloudsim.*;
@@ -277,4 +277,4 @@ public class Main {
         System.exit(1);
     }
 }
->>>>>>> 3cbf478b2ae0d4436c893bd18ea77cdc5b250154
+

@@ -11,10 +11,7 @@ import org.cloudbus.cloudsim.power.PowerDatacenter;
  * @author Fabien Hermenier
  *
  */
-<<<<<<< HEAD
 
-=======
->>>>>>> 3cbf478b2ae0d4436c893bd18ea77cdc5b250154
 public class Revenue {
 
     private int [] subscriptions = {42, 48, 54, 60, 66, 72, 78, 84, 90, 96, 102, 108, 120, 132, 144, 156, 168, 180, 192, 204, 216, 228, 240};
@@ -172,17 +169,17 @@ public class Revenue {
 
     @Override
     public String toString() {
-<<<<<<< HEAD
+
     	
         return "Incomes:    " + String.format("%.2f", clientIncomes()) + "€\n" +
                "Penalties:  " + String.format("%.2f", penalties()) + "€\n" +
                "Energy:     " + String.format("%.2f", energyCost()) + "€\n" +
                "Revenue:    " + String.format("%.2f", compute()) + "€\n";
-=======
+
         return "Incomes:    " + String.format("%.2f", clientIncomes()) + "â‚¬\n" +
                "Penalties:  " + String.format("%.2f", penalties()) + "â‚¬\n" +
                "Energy:     " + String.format("%.2f", energyCost()) + "â‚¬\n" +
                "Revenue:    " + String.format("%.2f", compute()) + "â‚¬\n";
->>>>>>> 3cbf478b2ae0d4436c893bd18ea77cdc5b250154
+
     }
 }
