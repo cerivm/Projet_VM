@@ -2,7 +2,11 @@ package fr.unice.vicc;
 
 import java.util.ArrayList;
 import java.util.List;
+<<<<<<< HEAD
 // System.out.println("Machine" + vm.getId() + "le serveur" + h.getId());
+=======
+
+>>>>>>> 3cbf478b2ae0d4436c893bd18ea77cdc5b250154
 /**
  * @author Fabien Hermenier
  */

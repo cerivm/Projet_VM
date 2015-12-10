@@ -16,6 +16,7 @@ public class VmAllocationPolicyFactory {
      * @param hosts the host list
      * @return the selected algorithm
      */
+<<<<<<< HEAD
 
    
 	VmAllocationPolicy make(String id, List<PowerHost> hosts) {
@@ -31,4 +32,14 @@ public class VmAllocationPolicyFactory {
         throw new IllegalArgumentException("No such policy '" + id + "'");
     }
 	
+=======
+    VmAllocationPolicy make(String id, List<PowerHost> hosts) {
+
+        switch (id) {
+            case "naive":  return new NaiveVmAllocationPolicy(hosts);
+			//case "SHAA": return new SopportHighlyAvailableApps();
+        }
+        throw new IllegalArgumentException("No such policy '" + id + "'");
+    }
+>>>>>>> 3cbf478b2ae0d4436c893bd18ea77cdc5b250154
 }
