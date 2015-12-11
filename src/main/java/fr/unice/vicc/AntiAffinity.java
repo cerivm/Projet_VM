@@ -38,7 +38,7 @@ public class AntiAffinity extends VmAllocationPolicy{
     public List<Map<String, Object>> optimizeAllocation(List<? extends Vm> list) {
         return null;
     }
-/*======================================================================================================================*/
+/***=====================================================================================================================*/
 /*======================================================================================================================*/
     // ***********************Function to check if the VM ID exists already in the host**************************  
     // The Principle of our algorithm is to check if the New VM has the ID in the same interval by looking at the result of

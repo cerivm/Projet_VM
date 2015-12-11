@@ -42,22 +42,23 @@ public class NextFit extends VmAllocationPolicy {
     /*=============================================================================*/
     /*==========================Next Fit Algorithm=================================*/
     /*=============================================================================*/
-    int temp = 0;// Global Variable to keep any changes while iterating the hosts
-    
     /* The Scheduling algorithm "Next fit" aims to allocate VM with regards to the next host from the last host allocated 
      * to the previous VM */
-    @Override  
+    
+    int temp = 0;// Global Variable to keep any changes while iterating the hosts
+   @Override  
     public boolean allocateHostForVm(Vm vm) {
 
          for (Host h : getHostList()) {
         	
-        	if(temp == h.getId())
+        	while(temp == h.getId() && temp <= 800)
         	{		        	           	
         			if (h.vmCreate(vm)) {
         				
         				    System.out.println("VM " + vm.getId() + " =====>   Host " + h.getId());
         					hoster.put(vm, h);
-        					temp++;
+        					
+        				     	temp++;
         					if(temp >= getHostList().size())
         	        		{
         					   temp = 0;
@@ -68,6 +69,31 @@ public class NextFit extends VmAllocationPolicy {
         }
         return false;
     }
+    
+   /* int var=0;
+    @Override  
+    public boolean allocateHostForVm(Vm vm) {
+
+         for (Host h : getHostList()) {
+        	
+        	 while( var <= 800 ){
+        		 if (h.vmCreate(vm)){
+     				if(var == 800)
+     				{
+     					break;
+     				}
+     				
+     				System.out.println("VM " + vm.getId() + " =====>   Host " + h.getId());
+ 					hoster.put(vm, h);
+        		 }
+        		 var++;
+        	 }
+        	         	
+        }
+        return false;
+    }
+    */
+    
     /*=============================================================================*/
     /*=============================================================================*/
 
