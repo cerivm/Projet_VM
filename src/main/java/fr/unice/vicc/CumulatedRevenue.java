@@ -11,6 +11,7 @@ import java.util.List;
 public class CumulatedRevenue extends Revenue {
 
     private List<Revenue> revenues;
+	
 
     public CumulatedRevenue() {
         super(null, null);

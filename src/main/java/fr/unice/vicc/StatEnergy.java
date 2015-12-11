@@ -23,6 +23,7 @@ public class StatEnergy extends VmAllocationPolicy {
         hoster =new HashMap<>();
     }
 
+	
     @Override
     protected void setHostList(List<? extends Host> hostList) {
         super.setHostList(hostList);

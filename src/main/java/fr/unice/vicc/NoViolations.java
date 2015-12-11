@@ -14,7 +14,7 @@ import java.util.Map;
  */
 public class NoViolations extends VmAllocationPolicy {
 
-    /** The map to track the server that host each running VM. */
+    /** The map to track  the server that host each running VM. */
     private Map<Vm,Host> hoster;
 
     public NoViolations(List<? extends Host> list) {

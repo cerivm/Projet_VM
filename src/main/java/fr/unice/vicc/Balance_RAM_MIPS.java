@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by Azzelarab & Med 7/12/2015.
+ *  Created by Azzelarab & Med 7/12/2015.
  */
 public class Balance_RAM_MIPS extends VmAllocationPolicy {
 

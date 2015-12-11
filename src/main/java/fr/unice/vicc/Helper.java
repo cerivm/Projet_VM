@@ -26,6 +26,7 @@ import java.util.*;
  */
 public class Helper {
 
+
     /*
     * VM instance types:
     *   High-Memory Extra Large Instance: 3.25 EC2 Compute Units, 8.55 GB // too much MIPS

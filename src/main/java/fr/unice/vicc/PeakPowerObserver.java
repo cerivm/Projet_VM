@@ -15,6 +15,7 @@ import java.util.List;
  */
 public class PeakPowerObserver extends SimEntity {
 
+
     /** The custom event id, must be unique. */
     public static final int OBSERVE = 728078;
 

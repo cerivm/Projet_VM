@@ -25,6 +25,7 @@ public class VmAllocationPolicyFactory {
             case "balance":  return new Balance(hosts);
             case "balanceMipsRAM":  return new Balance_RAM_MIPS(hosts);
             case "noViolations":  return new NoViolations(hosts);
+			
             
         }
         throw new IllegalArgumentException("No such policy '" + id + "'");
